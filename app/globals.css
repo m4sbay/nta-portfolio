@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-surface-info: #FBFBFB;
+  --color-text-primary: #707070;
+  --color-text-emphasis: #171717;
+  --font-size-body: 1rem;
+  --line-height-body: 1.5;
+}
+
 html {
   scroll-behavior: smooth;
 }
