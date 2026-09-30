@@ -22,7 +22,7 @@ function ContentSection({ title, children }: { title: string; children: ReactNod
 export default function RightColumn({ profile }: { profile: Profile }) {
   const paragraphRef = useParagraphAlignment(profile);
   return (
-    <div ref={paragraphRef} className=" mx-auto w-full min-w-0 max-w-2xl px-6 text-base font-normal leading-6 text-muted lg:px-8" lang="en">
+    <div ref={paragraphRef} className="mx-auto mt-[72px] w-full min-w-0 max-w-2xl px-6 text-base font-normal leading-6 text-muted lg:mt-[104px] lg:px-8" lang="en">
       <header className="flex items-center gap-4 pb-6 max-[479px]:items-start">
         <Image
           src="/nta.PNG"
