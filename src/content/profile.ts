@@ -45,11 +45,11 @@ export const profile: Profile = {
     {
       type: "paragraph",
       segments: [
-        "I’m a dentistry student at ",
+        "Dentistry student at Universitas",
         { type: "mention", entity: "universitas-baiturrahmah" },
         ", currently completing clinical training at ",
         { type: "mention", entity: "rsgmp-baiturrahmah" },
-        "."
+        " Baiturrahmah."
       ]
     },
     "Previously worked as a Dental Assistant for approximately two years, supporting patient communication, chairside assistance, instrument sterilization, clinical documentation, and teamwork in a clinical environment.",
