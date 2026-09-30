@@ -7,5 +7,5 @@ export const entity: Entity = {
   description: "RSGMP Baiturrahmah, tempat Dwi Sinta Maharani menjalani pelatihan klinis kedokteran gigi.",
   website: "https://rsgm.unbrah.ac.id/",
   logo: "/rsgm.png",
-  preview: "/rsgm.png"
+  preview: "/previews/rsgmp.webp"
 };

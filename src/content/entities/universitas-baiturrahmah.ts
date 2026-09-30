@@ -7,6 +7,5 @@ export const entity: Entity = {
   description: "Universitas Baiturrahmah, tempat Dwi Sinta Maharani menempuh pendidikan kedokteran gigi.",
   website: "https://unbrah.ac.id/",
   logo: "/unbrah.png",
-  // No separate preview artwork is supplied; the shared model uses the original logo.
-  preview: "/unbrah.png"
+  preview: "/previews/baiturrahmah.webp"
 };

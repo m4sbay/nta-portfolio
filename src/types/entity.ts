@@ -5,5 +5,6 @@ export interface Entity {
   description: string;
   website: string;
   logo: string;
-  preview: string;
+  /** Local landing-page screenshot, never the institution logo. */
+  preview?: `/${string}`;
 }

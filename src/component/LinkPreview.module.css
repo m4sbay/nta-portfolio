@@ -1,0 +1,60 @@
+.trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+.positioner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: min(21rem, calc(100vw - 1.5rem));
+  visibility: hidden;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.card {
+  padding: 6px;
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow:
+    0 24px 70px rgb(23 23 23 / 12%),
+    0 8px 24px rgb(23 23 23 / 7%);
+  transform-origin: center;
+  animation: preview-in 120ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f7f7f7;
+}
+
+@keyframes preview-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .positioner {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}

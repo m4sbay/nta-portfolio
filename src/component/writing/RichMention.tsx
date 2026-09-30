@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LinkPreview } from "../LinkPreview";
 import { getEntity } from "../../data/entities";
 import styles from "./RichMention.module.css";
 
@@ -8,8 +9,9 @@ export function RichMention({ entity }: { entity: string }) {
   if (!data) return null;
 
   return (
-    <a
+    <LinkPreview
       href={data.website}
+      preview={data.preview}
       target="_blank"
       rel="noopener noreferrer"
       className={`not-reading group cursor-pointer whitespace-nowrap ${styles.mention}`}
@@ -26,6 +28,6 @@ export function RichMention({ entity }: { entity: string }) {
       <span className={`text-blue-500 font-medium transition-colors group-hover:text-blue-500 dark:text-blue-400 dark:group-hover:text-blue-400 ${styles.name}`}>
         {data.title}
       </span>
-    </a>
+    </LinkPreview>
   );
 }

@@ -7,7 +7,7 @@ import RightColumn from "./RightColumn";
 
 const Lanyard = dynamic(() => import("./Lanyard"), {
   ssr: false,
-  loading: () => <p className="absolute inset-0 grid place-items-center">Memuat kartu 3D…</p>
+  loading: () => null
 });
 
 export default function Hero({ profile }: { profile: Profile }) {
