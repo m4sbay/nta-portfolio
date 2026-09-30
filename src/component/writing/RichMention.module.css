@@ -1,0 +1,55 @@
+/* Custom mention text color with scoped Tailwind 4 surface colors. */
+.mention {
+  --mention-blue: #185012;
+  --mention-border: oklch(92% 0.004 286.32);
+  --mention-background: #fff;
+  --mention-hover: oklch(98.5% 0 0);
+  display: inline;
+  text-decoration: none;
+}
+
+.mention .box {
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  border: 1px solid var(--mention-border);
+  border-radius: 6px;
+  background-color: var(--mention-background);
+  vertical-align: -3px;
+}
+
+.mention:hover .box {
+  background-color: var(--mention-hover);
+}
+
+.mention .name,
+.mention:hover .name {
+  color: var(--mention-blue);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.mention .box,
+.mention .name {
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:global(.dark) .mention {
+  --mention-blue: #185012;
+  --mention-border: rgb(255 255 255 / 10%);
+  --mention-background: rgb(255 255 255 / 5%);
+  --mention-hover: rgb(255 255 255 / 10%);
+}
+
+/* There is no theme provider in the landing page. Honor the system by default,
+   while allowing explicit .light/.dark on the root without client state. */
+@media (prefers-color-scheme: dark) {
+  :global(:root:not(.light):not(.dark)) .mention {
+    --mention-blue: #185012;
+    --mention-border: rgb(255 255 255 / 10%);
+    --mention-background: rgb(255 255 255 / 5%);
+    --mention-hover: rgb(255 255 255 / 10%);
+  }
+}

@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import type { ReactNode } from "react";
 import type { Profile } from "../content/profile";
+import { WritingArticleBody } from "./writing/WritingArticleBody";
+import { useParagraphAlignment } from "./useParagraphAlignment";
 
 const entryClassName = "grid gap-0.5 rounded-xl border border-border-subtle bg-white p-4 shadow-soft";
 const secondaryClassName = "text-muted opacity-[0.82]";
@@ -16,8 +20,9 @@ function ContentSection({ title, children }: { title: string; children: ReactNod
 }
 
 export default function RightColumn({ profile }: { profile: Profile }) {
+  const paragraphRef = useParagraphAlignment(profile);
   return (
-    <div className=" mx-auto w-full min-w-0 max-w-2xl px-6 text-base font-normal leading-6 text-muted lg:px-8" lang="en">
+    <div ref={paragraphRef} className=" mx-auto w-full min-w-0 max-w-2xl px-6 text-base font-normal leading-6 text-muted lg:px-8" lang="en">
       <header className="flex items-center gap-4 pb-6 max-[479px]:items-start">
         <Image
           src="/nta.PNG"
@@ -25,21 +30,29 @@ export default function RightColumn({ profile }: { profile: Profile }) {
           width={64}
           height={64}
           sizes="64px"
-          className="h-16 w-16 shrink-0 rounded-full border border-border-subtle object-cover shadow-avatar"
+          className="h-16 w-16 shrink-0 rounded-12 border border-border-subtle object-cover shadow-avatar"
         />
         <div className="min-w-0">
-          <p className="text-base font-normal leading-6 text-foreground">{profile.name}</p>
+          <p className="flex items-center gap-1 text-base font-normal leading-6 text-foreground">
+            <span>{profile.name}</span>
+            <Image
+              src="/verified.PNG"
+              alt="Verified profile"
+              width={16}
+              height={16}
+              sizes="16px"
+              className="h-4 w-4 shrink-0 object-contain"
+            />
+          </p>
           <p className="text-base font-normal leading-6">{profile.profession}</p>
           <p className="-mt-1 text-sm font-normal leading-6 text-muted opacity-[0.82]">Universitas Baiturrahmah</p>
         </div>
       </header>
       <h1 id="hero-title" className="mt-8 max-w-[38ch] text-balance text-base font-normal leading-6 text-foreground-strong">{profile.headline}</h1>
-      <p className="mt-1 text-sm font-normal leading-6">{profile.description}</p>
+      <p className="auto-justify mt-1 text-sm font-normal leading-6">{profile.description}</p>
 
       <ContentSection title="About">
-        <div className="grid gap-4">
-          {profile.about.map(paragraph => <p key={paragraph} className="text-base font-normal leading-6">{paragraph}</p>)}
-        </div>
+        <WritingArticleBody content={profile.about} className="grid gap-4 text-base font-normal leading-6" paragraphClassName="auto-justify" />
       </ContentSection>
 
       <ContentSection title="Education">
@@ -50,7 +63,7 @@ export default function RightColumn({ profile }: { profile: Profile }) {
               <p>{entry.field} · {entry.institution}</p>
               <p className={secondaryClassName}>{entry.status}</p>
               {entry.clinicalTraining && <p className={secondaryClassName}>Clinical training: {entry.clinicalTraining}</p>}
-              <p className="mt-2">{entry.description}</p>
+              <p className="auto-justify mt-2">{entry.description}</p>
             </article>
           ))}
         </div>
@@ -61,7 +74,7 @@ export default function RightColumn({ profile }: { profile: Profile }) {
           <p className="text-foreground">{profile.experience.title}</p>
           <p>{profile.experience.location}</p>
           <p className={secondaryClassName}>{profile.experience.duration}</p>
-          <p className="mt-2">{profile.experience.description}</p>
+          <p className="auto-justify mt-2">{profile.experience.description}</p>
         </article>
       </ContentSection>
 

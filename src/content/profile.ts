@@ -1,3 +1,5 @@
+import type { WritingBlock } from "../types/writing";
+
 export type Education = {
   institution: string;
   program: string;
@@ -26,7 +28,7 @@ export type Profile = {
   headline: string;
   description: string;
   location?: { name: string; flag?: string };
-  about: string[];
+  about: WritingBlock[];
   education: Education[];
   experience: Experience;
   organization: Organization;
@@ -40,7 +42,16 @@ export const profile: Profile = {
   headline: "Currently completing clinical dental training at RSGMP Baiturrahmah.",
   description: "Bachelor of Dentistry · Universitas Baiturrahmah",
   about: [
-    "Dentistry professional student at Universitas Baiturrahmah, currently completing clinical training at RSGMP Baiturrahmah.",
+    {
+      type: "paragraph",
+      segments: [
+        "I’m a dentistry student at ",
+        { type: "mention", entity: "universitas-baiturrahmah" },
+        ", currently completing clinical training at ",
+        { type: "mention", entity: "rsgmp-baiturrahmah" },
+        "."
+      ]
+    },
     "Previously worked as a Dental Assistant for approximately two years, supporting patient communication, chairside assistance, instrument sterilization, clinical documentation, and teamwork in a clinical environment.",
     "Also involved in the Student Executive Board (BEM), contributing to the Strategic Studies and Action Division (Kastrad)."
   ],
