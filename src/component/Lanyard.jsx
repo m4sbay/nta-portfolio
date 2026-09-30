@@ -9,12 +9,10 @@ import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphe
 const cardGLB = '/Lanyard/card.glb';
 const lanyard = '/Lanyard/Lanyard.png';
 const CARD_SCALE = 2.25;
+const STRAP_WIDTH_SCALAR = 1.25; // Tweak this value to match the desired strap proportion
 
 import * as THREE from 'three';
-import './Lanyard.css';
-
-
-export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 20, transparent = true, eventSource, framingElement }) {
+export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 20, transparent = true, eventSource }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
   useEffect(() => {
@@ -24,7 +22,7 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
   }, []);
 
   return (
-    <div className="lanyard-wrapper">
+    <div className="absolute inset-0 z-0 flex h-full min-h-0 w-full origin-center animate-lanyard-drop items-center justify-center motion-reduce:animate-none">
       <Canvas
         camera={{ position: position, fov: fov }}
         eventSource={eventSource}
@@ -33,7 +31,7 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
-        <SceneFraming framingElement={framingElement} />
+        <SceneFraming />
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band isMobile={isMobile} />
@@ -84,7 +82,7 @@ function heroEvents(state) {
   } };
 }
 
-function SceneFraming({ framingElement }) {
+function SceneFraming() {
   const framing = useRef(null);
   const { camera, size, gl } = useThree();
   const { nodes } = useGLTF(cardGLB);
@@ -95,14 +93,13 @@ function SceneFraming({ framingElement }) {
   useLayoutEffect(() => {
     const update = () => {
       const canvas = gl.domElement.getBoundingClientRect();
-      const home = framingElement?.current?.getBoundingClientRect() ?? canvas;
-      if (!canvas.width || !canvas.height || !home.width || !home.height) return;
-      const homeHeight = Math.max(cardSize.y / 0.42, cardSize.x / (0.4 * home.width / home.height));
-      const unitsPerPixel = homeHeight / home.height;
+      if (!canvas.width || !canvas.height) return;
+      const homeHeight = Math.max(cardSize.y / 0.42, cardSize.x / (0.4 * canvas.width / canvas.height));
+      const unitsPerPixel = homeHeight / canvas.height;
       const visibleHeight = unitsPerPixel * canvas.height;
-      // Translate the camera, not the physics model, to preserve the home slot.
-      camera.position.x = (canvas.width / 2 - (home.left - canvas.left + home.width / 2)) * unitsPerPixel;
-      camera.position.y = -0.95 + ((home.top - canvas.top + home.height / 2) - canvas.height / 2) * unitsPerPixel;
+      
+      camera.position.x = 0;
+      camera.position.y = -0.95; // Original vertical offset tweak
       camera.aspect = canvas.width / canvas.height;
       camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(visibleHeight / (2 * camera.position.z)));
       camera.updateProjectionMatrix();
@@ -110,11 +107,10 @@ function SceneFraming({ framingElement }) {
     };
     update();
     const observer = new ResizeObserver(update);
-    if (framingElement?.current) observer.observe(framingElement.current);
+    observer.observe(gl.domElement);
     return () => observer.disconnect();
-  }, [camera, gl, size.width, size.height, cardSize, framingElement]);
-  // Canvas may reapply its camera props after resize. Keep the authoritative
-  // framing in sync before physics/pointer projection and rendering each frame.
+  }, [camera, gl, size.width, size.height, cardSize]);
+  
   useFrame(() => {
     const target = framing.current;
     if (!target) return;
@@ -153,7 +149,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
   // in the same world units as the uniformly scaled card/clip/clamp assembly.
   const strapWidth = useMemo(() => {
     nodes.clamp.geometry.computeBoundingBox();
-    return nodes.clamp.geometry.boundingBox.getSize(new THREE.Vector3()).x * CARD_SCALE;
+    return nodes.clamp.geometry.boundingBox.getSize(new THREE.Vector3()).x * CARD_SCALE * STRAP_WIDTH_SCALAR;
   }, [nodes.clamp.geometry]);
   const strapGeometry = useMemo(() => createStrapGeometry(isMobile ? 16 : 32), [isMobile]);
   useEffect(() => () => strapGeometry.dispose(), [strapGeometry]);
@@ -190,7 +186,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       dragTools.bounds.setFromObject(cardVisual.current);
       const current = card.current.translation();
       const halfHeight = Math.tan(THREE.MathUtils.degToRad(state.camera.fov / 2)) *
-        (state.camera.position.z - dragTools.bounds.max.z);
+        (state.camera.position.z - dragTools.bounds.max.z) * 2; // Increased boundary for flexibility
       const halfWidth = halfHeight * state.camera.aspect;
       for (const [axis, half] of [['x', halfWidth], ['y', halfHeight]]) {
         const min = state.camera.position[axis] - half - (dragTools.bounds.min[axis] - current[axis]);
