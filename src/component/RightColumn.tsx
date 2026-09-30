@@ -20,7 +20,7 @@ export default function RightColumn({ profile }: { profile: Profile }) {
     <div className=" mx-auto w-full min-w-0 max-w-2xl px-6 text-base font-normal leading-6 text-muted lg:px-8" lang="en">
       <header className="flex items-center gap-4 pb-6 max-[479px]:items-start">
         <Image
-          src="/nta.png"
+          src="/nta.PNG"
           alt={profile.name}
           width={64}
           height={64}
