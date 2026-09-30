@@ -36,3 +36,21 @@ path. `logo` is used only for the existing inline mention icon.
 
 A future standalone capture script can write to `public/previews/` without
 changing the component. No Playwright or other screenshot dependency is added.
+
+### Languages (EN / ID)
+
+English is the default. `src/content/profile.ts` contains English profile copy;
+`src/content/profile.id.ts` contains the typed Indonesian version and reuses
+unchanged identity/institution data. UI labels and metadata live in
+`src/i18n/translations.ts`. Add translated UI text there and read it through
+`useLanguage()` rather than adding locale conditionals to components.
+
+`LanguageProvider` manages client state and saves the choice in the
+`sintafolio-locale` cookie for one year. The root layout reads that cookie to
+render matching initial content, HTML language, and metadata on the server.
+This makes the page dynamically server-rendered. Client switches update the
+HTML language and metadata without reloading or resetting the 3D scene/theme.
+`LanguageSwitcher` renders accessible EN / ID buttons above the profile.
+
+Institution names, links, logos, and existing image/3D textures are preserved;
+text embedded in those assets is not runtime-translated.

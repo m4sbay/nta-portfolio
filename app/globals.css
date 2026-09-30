@@ -19,7 +19,7 @@
     font-size: 1.125rem;
     line-height: 2rem;
     text-wrap: pretty;
-    color: oklch(55.2% 0.016 285.938);
+    color: var(--muted);
   }
 
   .reading > * + * {
@@ -29,22 +29,80 @@
   .reading :where(a):not(:where(.not-reading, .not-reading *)) {
     font-weight: 500;
     text-decoration: underline;
-    text-decoration-color: oklch(70.5% 0.015 286.067);
+    text-decoration-color: var(--muted);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
     transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .reading :where(a):not(:where(.not-reading, .not-reading *)):hover {
-    color: oklch(14.1% 0.005 285.823);
+    color: var(--foreground-strong);
     text-decoration-color: currentColor;
   }
 
-  .dark .reading {
-    color: oklch(87.1% 0.006 286.286);
+}
+
+@layer base {
+  :root {
+    --background: #fbfbfb;
+    --foreground: #171717;
+    --foreground-strong: #111111;
+    --muted: #707070;
+    --card: #ffffff;
+    --border: #e5e5e5;
+    --border-control: #e3e3e3;
+    --hover: #f0f0f4;
+    --focus: #6567bd;
+    --link: #185012;
+    --brand: #9fa1ff;
+    --brand-light: #b5baff;
+    --brand-surface: #eeeeff;
   }
 
-  .dark .reading :where(a):not(:where(.not-reading, .not-reading *)):hover {
-    color: oklch(98.5% 0 0);
+  .dark {
+    --background: #19191f;
+    --foreground: #e5e5ee;
+    --foreground-strong: #f5f5fa;
+    --muted: #aaaab8;
+    --card: #22222b;
+    --border: #383843;
+    --border-control: #444450;
+    --hover: #30303d;
+    --focus: #b5baff;
+    --link: #a6d69c;
+    --brand: #353650;
+    --brand-light: #b5baff;
+    --brand-surface: #29293f;
   }
+
+  body { background: var(--background); color: var(--foreground); }
+}
+
+/* Color interpolation is also the fallback for browsers without view transitions. */
+@media (prefers-reduced-motion: no-preference) {
+  body, main, main :where(div, section, article, header, figure, p, h1, h2, li, a, span, button) {
+    transition-property: background-color, color, border-color, text-decoration-color;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+  }
+  .theme-toggle svg { transition: opacity 300ms ease, transform 300ms ease; }
+}
+
+.theme-sun { opacity: 1; transform: rotate(0) scale(1); }
+.theme-moon { opacity: 0; transform: rotate(-20deg) scale(0.8); }
+.dark .theme-sun { opacity: 0; transform: rotate(20deg) scale(0.8); }
+.dark .theme-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+/* Capture the final palette, without layering CSS color interpolation over the fade. */
+.theme-transition *, .theme-transition *::before, .theme-transition *::after {
+  transition: none !important;
+}
+.theme-transition::view-transition-old(root),
+.theme-transition::view-transition-new(root) {
+  animation-duration: 300ms;
+  animation-timing-function: ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle svg { transition: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }

@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,16 +11,20 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#9FA1FF",
-          light: "#B5BAFF",
-          surface: "#EEEEFF"
+          DEFAULT: "var(--brand)",
+          light: "var(--brand-light)",
+          surface: "var(--brand-surface)"
         },
-        foreground: "#171717",
-        "foreground-strong": "#111111",
-        muted: "#707070",
-        surface: "#FBFBFB",
-        "border-subtle": "#E5E5E5",
-        "border-control": "#E3E3E3"
+        background: "var(--background)",
+        card: "var(--card)",
+        hover: "var(--hover)",
+        focus: "var(--focus)",
+        foreground: "var(--foreground)",
+        "foreground-strong": "var(--foreground-strong)",
+        muted: "var(--muted)",
+        surface: "var(--background)",
+        "border-subtle": "var(--border)",
+        "border-control": "var(--border-control)"
       },
       boxShadow: {
         soft: "0 2px 8px #17171706",

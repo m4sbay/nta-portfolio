@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,8 +18,10 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".", // <-- Tambahkan ini
-    "paths": {      // <-- Tambahkan ini
-      "~/*": ["./*"]
+    "paths": { // <-- Tambahkan ini
+      "~/*": [
+        "./*"
+      ]
     },
     "plugins": [
       {
@@ -23,6 +29,15 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "skills"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next-dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "skills"
+  ]
 }

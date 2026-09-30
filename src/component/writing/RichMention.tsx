@@ -16,16 +16,16 @@ export function RichMention({ entity }: { entity: string }) {
       rel="noopener noreferrer"
       className={`not-reading group cursor-pointer whitespace-nowrap ${styles.mention}`}
     >
-      <span className={`mr-1.5 inline-flex h-5.5 w-5.5 items-center justify-center rounded-sm border border-zinc-200 bg-white align-[-3px] transition-colors group-hover:bg-zinc-50 dark:border-white/10 dark:bg-white/5 dark:group-hover:bg-white/10 ${styles.box}`}>
+      <span className={`ml-1 mr-1 inline-flex h-4 w-4 items-center justify-center rounded-xs border border-border-subtle dark:border-zinc-200 bg-card dark:bg-zinc-100 align-[-3px] transition-colors group-hover:bg-hover dark:group-hover:bg-zinc-200 ${styles.box}`}>
         <Image
           src={data.logo}
           alt=""
           width={14}
           height={14}
-          className="h-4 w-4 rounded-[4px] object-cover"
+          className="h-3.5 w-3.5 rounded-[4px] object-cover"
         />
       </span>
-      <span className={`text-blue-500 font-medium transition-colors group-hover:text-blue-500 dark:text-blue-400 dark:group-hover:text-blue-400 ${styles.name}`}>
+      <span className={`font-medium transition-colors ${styles.name}`}>
         {data.title}
       </span>
     </LinkPreview>
