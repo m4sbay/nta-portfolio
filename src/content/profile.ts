@@ -52,7 +52,7 @@ export const profile: Profile = {
         " Baiturrahmah."
       ]
     },
-    "Previously worked as a Dental Assistant for approximately two years, supporting patient communication, chairside assistance, instrument sterilization, clinical documentation, and teamwork in a clinical environment.",
+    "Previously worked as a Dental Assistant for approximately one years, supporting patient communication, chairside assistance, instrument sterilization, clinical documentation, and teamwork in a clinical environment.",
     "Also involved in the Student Executive Board (BEM), contributing to the Strategic Studies and Action Division (Kastrad)."
   ],
   education: [

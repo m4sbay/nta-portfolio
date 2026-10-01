@@ -6,7 +6,7 @@ import { useLanguage } from "./LanguageProvider";
 export default function LanguageSwitcher() {
   const { locale, setLocale, t } = useLanguage();
   return (
-    <div role="group" aria-label={t.language} className="relative -top-5 mb-6 flex items-center gap-2 text-xs leading-6">
+    <div role="group" aria-label={t.language} className="flex items-center gap-2 text-xs leading-6">
       {locales.map((language, index) => (
         <span key={language} className="flex items-center gap-2">
           {index > 0 && <span aria-hidden="true" className="text-muted">/</span>}

@@ -10,6 +10,7 @@ import { useParagraphAlignment } from "./useParagraphAlignment";
 
 const entryClassName = "grid gap-0.5 rounded-xl border border-border-subtle bg-card p-4 shadow-soft";
 const secondaryClassName = "text-muted";
+const contactLinkClassName = "font-normal underline decoration-focus decoration-1 underline-offset-2 transition-colors hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus";
 
 function ContentSection({ title, children }: { title: string; children: ReactNode }) {
   const id = useId();
@@ -27,7 +28,10 @@ export default function RightColumn() {
   const paragraphRef = useParagraphAlignment(profile);
   return (
     <div ref={paragraphRef} className="mx-auto mt-[72px] w-full min-w-0 max-w-2xl px-6 text-base font-normal leading-6 text-muted lg:mt-[104px] lg:px-8" lang={locale}>
-      <LanguageSwitcher />
+      <div className="relative -top-10 mb-6 flex h-8 items-center justify-between gap-4">
+        <LanguageSwitcher />
+        <ThemeToggle />
+      </div>
       <header className="flex items-start gap-3 pb-6 sm:gap-4">
         <Image
           src="/nta.PNG"
@@ -52,10 +56,16 @@ export default function RightColumn() {
           <p className="text-base font-normal leading-6">{profile.profession}</p>
           <p className="-mt-1 text-sm font-normal leading-6 text-muted">Universitas Baiturrahmah</p>
         </div>
-        <ThemeToggle />
       </header>
       <h1 id="hero-title" className="mt-8 max-w-[38ch] text-balance text-base font-normal leading-6 text-foreground-strong">{profile.headline}</h1>
       <p className="auto-justify mt-1 text-sm font-normal leading-6">{profile.description}</p>
+
+      <p className="mt-6 text-sm font-normal leading-6 text-muted">
+        {t.contact.intro}{" "}
+        <a className={contactLinkClassName} href="https://www.linkedin.com/in/sntamhrni" target="_blank" rel="noopener noreferrer">LinkedIn</a>,{" "}
+        <a className={contactLinkClassName} href="https://www.instagram.com/sntamhrni/" target="_blank" rel="noopener noreferrer">Instagram</a>, {t.contact.or}{" "}
+        <a className={contactLinkClassName} href="mailto:sintamaharani1803@gmail.com">Email</a>.
+      </p>
 
       <ContentSection title={t.sections.about}>
         <WritingArticleBody content={profile.about} className="grid gap-4 text-base font-normal leading-6" paragraphClassName="auto-justify" />
@@ -95,7 +105,7 @@ export default function RightColumn() {
       <ContentSection title={t.sections.skills}>
         <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
           {profile.skills.map(skill => (
-            <li className="rounded-full border border-border-control bg-card px-3 py-1 text-base font-normal leading-6 text-muted" key={skill}>{skill}</li>
+            <li className="rounded-md border border-border-control bg-card px-2 py-0.5 text-sm font-normal leading-5 text-muted" key={skill}>{skill}</li>
           ))}
         </ul>
       </ContentSection>

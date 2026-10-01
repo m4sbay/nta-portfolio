@@ -10,6 +10,7 @@ export function parseLocale(value?: string): Locale { return value === "id" ? "i
 export const translations = {
   en: {
     profile: en,
+    contact: { intro: "Find me on", or: "or" },
     sections: { about: "About", education: "Education", experience: "Experience", organization: "Organization", skills: "Skills" },
     clinicalTraining: "Clinical training",
     verified: "Verified profile",
@@ -21,6 +22,7 @@ export const translations = {
   },
   id: {
     profile: id,
+    contact: { intro: "Temukan saya di", or: "atau" },
     sections: { about: "Tentang", education: "Pendidikan", experience: "Pengalaman", organization: "Organisasi", skills: "Keahlian" },
     clinicalTraining: "Pendidikan klinis",
     verified: "Profil terverifikasi",
